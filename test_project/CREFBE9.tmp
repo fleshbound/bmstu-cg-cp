@@ -1,0 +1,22 @@
+\documentclass{article}
+
+\usepackage{GOST}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{titlesec}
+\usepackage{cmap}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{float}
+
+\begin{document}
+    \newpage
+    \begin{center}
+        \section{Тест на обезьяну успешно провален}
+    \end{center}
+\end{document}

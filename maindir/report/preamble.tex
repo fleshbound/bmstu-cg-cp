@@ -26,3 +26,25 @@
 \titlespacing{\section}{12.5mm}{10pt}{10pt}
 \titlespacing{\subsection}{12.5mm}{10pt}{10pt}
 \titlespacing{\subsubsection}{12.5mm}{10pt}{10pt}
+
+\usepackage{multicol}
+
+\DeclareCaptionLabelSeparator{emdash}{ --- }
+\captionsetup{singlelinecheck=on}
+\captionsetup[figure]{name={Рисунок},labelsep=emdash}
+%\captionsetup{justification=flushleft}
+\captionsetup[table]{singlelinecheck=false,labelsep=emdash}
+\renewcommand{\thetable}{\arabic{table}}
+\renewcommand{\thefigure}{\arabic{figure}}
+
+\usepackage[figure,table]{totalcount} % Подсчет изображений, таблиц
+\usepackage{lastpage} % Для подсчета числа страниц
+\usepackage{pdfpages}
+\usepackage{pax}
+
+%\setcounter{page}{20}
+
+\usepackage{svg}
+\svgpath{{inc/img/}}
+
+%\usepackage{textalpha}% greek symbols

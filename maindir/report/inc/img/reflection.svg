@@ -30,8 +30,8 @@
      inkscape:snap-grids="true"
      inkscape:snap-to-guides="true"
      inkscape:zoom="1.2718294"
-     inkscape:cx="351.46225"
-     inkscape:cy="466.65065"
+     inkscape:cx="338.88193"
+     inkscape:cy="466.65064"
      inkscape:window-width="1920"
      inkscape:window-height="958"
      inkscape:window-x="0"
@@ -332,11 +332,11 @@
          x="100.93369"
          y="165.05135">Поверхность</tspan></text>
     <rect
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.072;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.951145;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect75"
-       width="248.70831"
+       width="195.79166"
        height="82.020836"
-       x="-34.395821"
+       x="-7.9374843"
        y="87.3125" />
   </g>
 </svg>

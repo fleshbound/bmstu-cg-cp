@@ -24,7 +24,7 @@
       <text x="824.0132" font-size="17px" y="183.3462" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">D - направление луча,</text>
       <text x="824.0132" font-size="17px" y="203.1353" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">V0, V1, V2 - вершины треугольной грани,</text>
       <text x="824.0132" font-size="17px" y="222.9243" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">tmin, tmax - мин., макс. возможные значения t</text>
-      <text x="824.0132" font-size="17px" y="242.7134" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">Выходные данные: res_t - результат, </text>
+      <text x="824.0132" font-size="17px" y="242.7134" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">Выходные данные: </text>
       <text x="824.0132" font-size="17px" y="262.5024" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">hitinfo - информация о пересечении</text>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-418,-110)" stroke-linecap="butt">
@@ -35,7 +35,7 @@
       <path fill="none" d="M523.8 259.9397 L768 259.9397 L768 341.3397 L523.8 341.3397 Z" clip-path="url(#clipPath2)"/>
       <text x="588.9774" font-size="17px" y="286.7358" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">E1 = V1 - V0,</text>
       <text x="588.9774" font-size="17px" y="306.5249" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">E2 = V2 - V0,</text>
-      <text x="593.3478" font-size="17px" y="326.314" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">res_t = -100</text>
+      <text x="581.0253" font-size="17px" y="326.314" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">hitinfo.t = -100</text>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-418,-110)" stroke-linecap="butt">
       <path fill="none" d="M849.625 358.3293 L815 358.3293 L815 439.7293 L849.625 439.7293" clip-path="url(#clipPath2)"/>
@@ -77,7 +77,7 @@
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-418,-110)" stroke-linecap="butt">
       <path fill="none" d="M975.15 1234.0446 L1219.35 1234.0446 L1219.35 1315.4446 L975.15 1315.4446 Z" clip-path="url(#clipPath2)"/>
-      <text x="1060.656" font-size="17px" y="1280.6299" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">res_t = t</text>
+      <text x="1048.3335" font-size="17px" y="1280.6299" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">hitinfo.t = t</text>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-418,-110)" stroke-linecap="butt">
       <path fill="none" d="M1193.1 725.3586 L1437.3 725.3586 L1437.3 806.7585 L1193.1 806.7585 Z" clip-path="url(#clipPath2)"/>
@@ -120,7 +120,7 @@
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-418,-110)" stroke-linecap="butt">
       <path fill="none" d="M521.5253 1378.9771 L792.9683 1378.9771 L772.2114 1460.3771 L500.7683 1460.3771 Z" clip-path="url(#clipPath2)"/>
-      <text x="553.9992" font-size="17px" y="1425.5623" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">Вернуть res_t, hitinfo</text>
+      <text x="580.1384" font-size="17px" y="1425.5623" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">Вернуть hitinfo</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(1,0,0,1,-418,-110)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke-dasharray="12,4" stroke-width="2" stroke-miterlimit="1.45">
       <path fill="none" d="M767.994 197.25 L814.9764 197.25" clip-path="url(#clipPath2)"/>

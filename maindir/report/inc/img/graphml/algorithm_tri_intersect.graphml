@@ -47,7 +47,7 @@ hitinfo - информация о пересечении<y:LabelModel><y:SmartNo
     <node id="n2">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.terminator">
-          <y:Geometry height="81.4" width="244.20000000000005" x="524.7683487654325" y="1490.3770543981477"/>
+          <y:Geometry height="81.4" width="244.20000000000005" x="524.7683487654325" y="1481.9653571504414"/>
           <y:Fill color2="#B7C9E3" hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="17" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="23.7890625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="59.615234375" x="92.29238281250002" xml:space="preserve" y="28.805468750000045">Конец<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -292,10 +292,10 @@ t &gt;= tmin?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel
     <node id="n22">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.data">
-          <y:Geometry height="81.40000000000009" width="292.20000000000005" x="500.7683487654325" y="1378.9770543981476"/>
+          <y:Geometry height="81.40000000000009" width="244.20000000000005" x="524.7683487654325" y="1378.9770543981476"/>
           <y:Fill color2="#B7C9E3" hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="17" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="23.7890625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="137.4599609375" x="77.37001953125002" xml:space="preserve" y="28.805468750000045">Вернуть hitinfo<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="17" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="23.7890625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="137.4599609375" x="53.37001953125002" xml:space="preserve" y="28.805468750000045">Вернуть hitinfo<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>

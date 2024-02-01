@@ -12,9 +12,6 @@
 
 В данной работе используется поверхностное представление моделей, при котором они представляются аналитически (полностью или частично)~\cite{куров}.
 
-% эта фигня снизу написана для красивой разметки аналита, надо будет картинки поправить
-В качестве поверхностей выбраны треугольные поверхности, формат файлов с моделями --- STL.
-
 Процесс получения модели называется \textit{моделированием}.
 
 Сцена состоит из набора сущностей:
@@ -47,9 +44,13 @@
 где $\alpha$ --- угол падения, $\beta$ --- угол отражения, лучи и нормаль находятся в одной плоскости \cite{порев2002компьютерная}, \cite{оптика20036}, \cite{rodionov}.
 
 Отражение луча света от некоторого объекта сцены представлено на рисунке \ref{img:scene_reflection}.
-Рисунок \ref{img:scene_reflection} содержит следующие обозначения: $\overrightarrow N$ --- нормаль к поверхности в точке падения луча, $\overrightarrow V$, $\overrightarrow L$, $\overrightarrow R$ --- векторы, обозначающие направления от точки объекта к наблюдателю, обратное вектору наблюдения и отраженного луча соответственно, $\alpha = \angle (\overrightarrow{L}, \overrightarrow{N})$, $\beta = \angle (\overrightarrow{N}, \overrightarrow{R})$, $\omega = \angle (\overrightarrow{R}, \overrightarrow{V})$.
+Рисунок \ref{img:scene_reflection} содержит следующие обозначения: $\overrightarrow N$ --- нормаль к поверхности в точке падения луча, $\overrightarrow V$, $\overrightarrow L$, $\overrightarrow R$ --- векторы, обозначающие направления от точки объекта к наблюдателю, обратное вектору наблюдения и отраженного луча (который вычисляется по формуле \ref{eq:refl_ray}) соответственно, $\alpha = \angle (\overrightarrow{L}, \overrightarrow{N})$, $\beta = \angle (\overrightarrow{N}, \overrightarrow{R})$, $\omega = \angle (\overrightarrow{R}, \overrightarrow{V})$.
 
 \includeimage{scene_reflection}{f}{h}{0.9\textwidth}{Отражение луча света от некоторого объекта сцены}
+
+\begin{equation}\label{eq:refl_ray}
+	\overrightarrow{R} = \overrightarrow{L} - 2 \cdot \overrightarrow{N} \cdot (\overrightarrow{N}, \overrightarrow{L})
+\end{equation}
 
 \textit{Идеальным зеркалом} называется такое зеркало, отраженный от которого свет наблюдатель с направлением взгляда -$\overrightarrow V$ сможет увидеть только в том случае, если угол $\omega$ равен нулю, а для $\alpha$ и $\beta$ выполняется формула \ref{eq:reflect} \cite{демин2011}.
 

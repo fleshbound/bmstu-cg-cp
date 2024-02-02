@@ -58,7 +58,7 @@
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-521,-44)" stroke-linecap="butt">
       <path fill="none" d="M738.5 529.3163 L860.6 570.0164 L738.5 610.7164 L616.4 570.0164 Z" clip-path="url(#clipPath2)"/>
-      <text x="688.741" font-size="17px" y="575.9016" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">disct &gt;= 0?</text>
+      <text x="698.5649" font-size="17px" y="575.9016" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" xml:space="preserve">disct &gt;0?</text>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-521,-44)" stroke-linecap="butt">
       <path fill="none" d="M812.8741 653.175 L1057.0741 653.175 L1057.0741 734.575 L812.8741 734.575 Z" clip-path="url(#clipPath2)"/>

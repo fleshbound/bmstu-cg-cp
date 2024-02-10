@@ -12,6 +12,7 @@ public:
     {}
     ~Facade() = default;
     std::string execute(BaseCommand *command);
+
 private:
     std::shared_ptr<SceneManager> _manager;
 };

@@ -7,7 +7,10 @@ class BBox
 {
 public:
     BBox() = default;
-    BBox(const QVector3D min_coords, const QVector3D max_coords): _min_coords(min_coords), _max_coords(max_coords) {};
+    BBox(const QVector3D min_coords, const QVector3D max_coords):
+        _min_coords(min_coords),
+        _max_coords(max_coords)
+    {};
     QVector3D get_min() const;
     QVector3D get_max() const;
     bool hit(const Ray& r) const;

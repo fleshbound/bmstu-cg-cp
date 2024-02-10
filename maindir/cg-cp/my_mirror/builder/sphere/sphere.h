@@ -6,7 +6,8 @@
 class SphereBuilder: public BaseBuilder
 {
 public:
-    SphereBuilder(std::shared_ptr<Material> material = nullptr): BaseBuilder("sphere", false, material) {};
+    SphereBuilder(std::shared_ptr<Material> material = nullptr):
+        BaseBuilder("sphere", false, material) {};
     void build() override;
 };
 

@@ -3,8 +3,8 @@
 Triangle::Triangle(QVector3D a, QVector3D b, QVector3D c, QVector3D normal, std::shared_ptr<Material> material)
 {
     _points[0] = a;
-    _points[0] = b;
-    _points[0] = c;
+    _points[1] = b;
+    _points[2] = c;
     _material = material;
     _normal = normal;
     _normal.normalize();
@@ -16,7 +16,7 @@ void Triangle::move(const QVector3D& d)
 {
     for (size_t i = 0; i < 3; i++)
         for (size_t j = 0; j < 3; j++)
-            _points[i][j] = d[j];
+            _points[i][j] += d[j];
 
     for (size_t i = 0; i < 3; i++)
         _center[i] = d[i];
@@ -42,11 +42,11 @@ void Triangle::scale(const bool scale_mirror, const QVector3D& k)
 void Triangle::update()
 {
     float min_x = std::min(std::min(_points[0].x(), _points[1].x()), _points[2].x());
-    float min_y = std::min(std::min(_points[0].x(), _points[1].x()), _points[2].x());
-    float min_z = std::min(std::min(_points[0].x(), _points[1].x()), _points[2].x());
+    float min_y = std::min(std::min(_points[0].y(), _points[1].y()), _points[2].y());
+    float min_z = std::min(std::min(_points[0].z(), _points[1].z()), _points[2].z());
     float max_x = std::max(std::max(_points[0].x(), _points[1].x()), _points[2].x());
-    float max_y = std::max(std::max(_points[0].x(), _points[1].x()), _points[2].x());
-    float max_z = std::max(std::max(_points[0].x(), _points[1].x()), _points[2].x());
+    float max_y = std::max(std::max(_points[0].y(), _points[1].y()), _points[2].y());
+    float max_z = std::max(std::max(_points[0].z(), _points[1].z()), _points[2].z());
     QVector3D min_coords = {min_x, min_y, min_z};
     QVector3D max_coords = {max_x, max_y, max_z};
     _bbox = BBox(min_coords, max_coords);
@@ -74,7 +74,7 @@ bool Triangle::hit(const Ray& r, const double t_min, const double t_max, HitInfo
     double u = QVector3D::dotProduct(p, tvec) * inv_det;
     double v = QVector3D::dotProduct(q, d) * inv_det;
 
-    if ((u < 0) || (v < 0) || (u + v >= 1))
+    if ((u < 0) || (v < 0) || (u + v > 1))
         return false;
 
     double t = QVector3D::dotProduct(q, e2) * inv_det;
@@ -85,10 +85,6 @@ bool Triangle::hit(const Ray& r, const double t_min, const double t_max, HitInfo
     hitdata.t = t;
     hitdata.point = r.get_point_by_t(t);
     QVector3D normal = QVector3D::crossProduct(e1, e2).normalized();
-
-    if (QVector3D::dotProduct(normal, d) < 1e-8f)
-        normal = -normal;
-
     hitdata.normal = normal;
     hitdata.material = _material;
     hitdata.object = shared_from_this();

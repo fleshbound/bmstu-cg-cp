@@ -6,7 +6,8 @@
 class MirrorPlaneBuilder: public MirrorBuilder
 {
 public:
-    MirrorPlaneBuilder(std::shared_ptr<Material> material = nullptr): MirrorBuilder("mirrorplane", material) {};
+    MirrorPlaneBuilder(std::shared_ptr<Material> material = nullptr):
+        MirrorBuilder("mirrorplane", material) {};
     void build() override;
 };
 

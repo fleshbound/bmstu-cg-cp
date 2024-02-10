@@ -6,7 +6,8 @@
 class MirrorBuilder: public BaseBuilder
 {
 public:
-    MirrorBuilder(std::string name, std::shared_ptr<Material> material = nullptr): BaseBuilder(name, true, material) {}
+    MirrorBuilder(std::string name, std::shared_ptr<Material> material = nullptr):
+        BaseBuilder(name, true, material) {}
     void build() override;
 };
 

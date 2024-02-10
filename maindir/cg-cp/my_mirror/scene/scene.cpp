@@ -5,12 +5,12 @@ Scene::Scene(std::shared_ptr<QPixmap> pixmap)
     qInfo( "scene: start creating" );
     qInfo( "camera: create" );
 
-    _camera = std::make_shared<Camera>(QVector3D(-50, -50, -50),
-                                       QVector3D(1, 1, 1.5),
+    _camera = std::make_shared<Camera>(QVector3D(-150, -150, -150),
+                                       QVector3D(1, 1, 0.1),
                                        static_cast<double>(pixmap->width()) / pixmap->height());
     qInfo( "light: create" );
 
-    _light = std::make_shared<Light>(QVector3D(0, 0, 50), QVector3D(1, 1, 1));
+    _light = std::make_shared<Light>(QVector3D(-150, -150, -150), QVector3D(1, 1, 1));
     _builders = {
         ConeBuilder(),
         CylinderBuilder(),
@@ -26,7 +26,7 @@ Scene::Scene(std::shared_ptr<QPixmap> pixmap)
         MirrorConcaveBuilder()
     };
     _pixmap = pixmap;
-    change_object_and_mirror("sphere", "mirrorplane");
+    change_object_and_mirror("sphere", "mirrorconvex");
     _start();
     draw();
 }
@@ -44,7 +44,7 @@ void Scene::_start()
 {
     std::vector<std::shared_ptr<Object>> objects;
     std::mutex mutex_set[2];
-    qInfo( "scene: start parallel" );
+    qInfo( "scene: start _start" );
 
     tbb::parallel_for(0, 2, [&](std::size_t i)
     {
@@ -54,14 +54,14 @@ void Scene::_start()
         std::shared_ptr<Model> model(_builders[id].get_model());
         mutex_set[i].unlock();
 
-        if (i == 2)
-            model->scale(true, QVector3D(50, 50, 50));
+        if (i == 1)
+            model->scale(true, QVector3D(40, 40, 40));
 
         model->move(QVector3D(50 * (2 - i), 50 * (2 - i), 0));
         objects.emplace_back(model);
     });
 
-    qInfo( "scene: end parallel" );
+    qInfo( "scene: end _start" );
 
     _objects = objects;
     _models = std::make_shared<KDtree>(objects);
@@ -69,9 +69,9 @@ void Scene::_start()
 
 QVector3D Scene::trace(const Ray& r, const int depth, HitInfo& hitdata)
 {
-    QVector3D ints(0.2, 0.2, 0.2);
+    QVector3D ints(0.1, 0.1, 0.1);
 
-    bool hit = _models->hit(r, -1e-2f, MAXFLOAT, hitdata);
+    bool hit = _models->hit(r, -1e-3f, MAXFLOAT, hitdata);
 
     if (hit)
     {
@@ -79,13 +79,13 @@ QVector3D Scene::trace(const Ray& r, const int depth, HitInfo& hitdata)
         HitInfo l_hitdata;
         QVector3D ip = _light->get_ints();
 
-        if (_models->hit(rayl, -1e-2f, MAXFLOAT, l_hitdata))
+        if (_models->hit(rayl, -1e-3f, MAXFLOAT, l_hitdata))
             ip *= 0.5f;
 
         QVector3D c = hitdata.material->get_diffuse();
         QVector3D ia = hitdata.material->get_ambient();
         QVector3D kr = hitdata.material->get_reflective();
-        ints = (ip * c + ia) * (QVector3D(1, 1, 1) - kr);
+        ints += (ip * c + ia) * (QVector3D(1, 1, 1) - kr);
 
         QVector3D reflection_power;
         double cos_p;
@@ -125,7 +125,7 @@ void Scene::draw()
         Ray ray_ij = _camera->get_ray(r_i, r_j);
         QVector3D ints{0, 0, 0};
         HitInfo hitdata;
-        ints = trace(ray_ij, 0, hitdata);
+        ints += trace(ray_ij, 0, hitdata);
         mutex_pix.lock();
         drawer->draw_pixel(i, height - j, ints);
         mutex_pix.unlock();

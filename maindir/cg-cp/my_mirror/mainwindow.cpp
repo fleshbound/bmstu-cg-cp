@@ -105,10 +105,13 @@ void MainWindow::on_pushButton_edit_mirror_clicked()
     {
     case 0:
         mirror_name = "mirrorplane";
+        break;
     case 1:
         mirror_name = "mirrorconvex";
+        break;
     case 2:
         mirror_name = "mirrorconcave";
+        break;
     }
 
     double radius_k = ui->spinBox_mirror_radius_k->value();
@@ -130,44 +133,58 @@ void MainWindow::on_pushButton_edit_object_clicked()
     {
     case 0:
         object_name = "sphere";
+        break;
     case 1:
         object_name = "cylinder";
+        break;
     case 2:
         object_name = "cone";
+        break;
     case 3:
         switch (ui->comboBox_object_edge->currentIndex())
         {
         case 0:
             object_name = "prysmtri";
+            break;
         case 1:
             object_name = "prysmtetra";
+            break;
         case 2:
             object_name = "prysmpenta";
+            break;
         }
+        break;
     case 4:
         switch (ui->comboBox_object_edge->currentIndex())
         {
         case 0:
             object_name = "pyramidetri";
+            break;
         case 1:
             object_name = "pyramidetetra";
+            break;
         case 2:
             object_name = "pyramidepenta";
+            break;
         }
+        break;
     }
 
     double radius_k = ui->spinBox_object_radius_k->value();
     double height_k = ui->spinBox_object_height_k->value();
-    double angle_k = ui->spinBox_object_angle_k->value();
+    double angle_kx = ui->spinBox_object_angle_kx->value();
+    double angle_ky = ui->spinBox_object_angle_ky->value();
 
-    EditObject *command = new EditObject(object_name, radius_k, angle_k, height_k);
+    QVector3D scale_k(radius_k, radius_k, height_k);
+    QVector3D angle_k(angle_kx, angle_ky, 0);
+
+    EditObject *command = new EditObject(object_name, scale_k, angle_k);
 
     if (_execute_with_wait(command))
         _draw();
 
     delete command;
 }
-
 
 void MainWindow::on_pushButton_object_color_clicked()
 {
@@ -201,7 +218,6 @@ void MainWindow::on_pushButton_edit_light_clicked()
     delete command;
 }
 
-
 void MainWindow::on_pushButton_light_color_clicked()
 {
     QString title = "Выбор интенсивности точечного источника света";
@@ -217,18 +233,13 @@ void MainWindow::on_pushButton_light_color_clicked()
     }
 }
 
-
 void MainWindow::on_pushButton_edit_camera_clicked()
 {
-    double dx = ui->spinBox_camera_dx->value();
-    double dy = ui->spinBox_camera_dy->value();
-    double dz = ui->spinBox_camera_dz->value();
+    double ax = double(ui->spinBox_camera_angle_x->value()) * M_PI / 180.0f;
+    double ay = double(ui->spinBox_camera_angle_y->value()) * M_PI / 180.0f;
+    double az = double(ui->spinBox_camera_angle_z->value()) * M_PI / 180.0f;
 
-    double ax = ui->spinBox_camera_angle_x->value();
-    double ay = ui->spinBox_camera_angle_y->value();
-    double az = ui->spinBox_camera_angle_z->value();
-
-    QVector3D d(dx, dy, dz);
+    QVector3D d(ui->spinBox_camera_dx->value(), ui->spinBox_camera_dy->value(), ui->spinBox_camera_dz->value());
     QVector3D angle(ax, ay, az);
 
     MoveAndRotateCamera *command = new MoveAndRotateCamera(d, angle);

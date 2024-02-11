@@ -35,23 +35,21 @@ private:
 class EditObject: public BaseCommand
 {
 public:
-    EditObject(std::string name, const double& radius_k, const double& angle_k, const double& height_k):
-        _name(name),
-        _radius_k(radius_k),
+    EditObject(std::string name, const QVector3D& scale_k, const QVector3D& angle_k):
+        _scale_k(scale_k),
         _angle_k(angle_k),
-        _height_k(height_k)
+        _name(name)
     {}
 
     std::string execute()
     {
-        return _scene_manager->edit_object(_name, _radius_k, _angle_k, _height_k);
+        return _scene_manager->edit_object(_name, _scale_k, _angle_k);
     }
 
 private:
     std::string _name;
-    double _radius_k;
-    double _height_k;
-    double _angle_k;
+    QVector3D _angle_k;
+    QVector3D _scale_k;
 };
 
 class EditMirror: public BaseCommand

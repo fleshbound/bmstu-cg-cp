@@ -11,7 +11,7 @@ public:
     void update() override;
     void set_material(const QVector3D& reflective, const double& polish, const QVector3D& diffuse) override;
     bool hit(const Ray& r, const double t_min, const double t_max, HitInfo& hitdata) const override;
-    void scale(const bool scale_mirror, const QVector3D &) override { throw "can't scale kdtree"; }
+    void scale(const bool scale_mirror, const QVector3D &, const QVector3D& a = QVector3D(0, 0, 0)) override { throw "can't scale kdtree"; }
 
 private:
     struct KDnode: public std::enable_shared_from_this<KDnode>

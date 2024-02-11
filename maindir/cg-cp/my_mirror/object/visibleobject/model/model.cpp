@@ -2,11 +2,8 @@
 
 void Model::move(const QVector3D& d)
 {
-    //printf("oldcenter:%f, %f, %f", _center[0], _center[1], _center[2]);
     for (size_t i = 0; i < 3; i++)
         _center[i] += d[i];
-    //printf("new:%f, %f, %f", _center[0], _center[1], _center[2]);
-
 
     for (auto& object : _objects)
         object->move(d);
@@ -14,16 +11,19 @@ void Model::move(const QVector3D& d)
     Model::update();
 }
 
-void Model::scale(const bool scale_mirror, const QVector3D& k)
+void Model::scale(const bool scale_mirror, const QVector3D& k, const QVector3D& a)
 {
-    if ((!this->is_mirror() && scale_mirror) || (this->is_mirror() && !scale_mirror))
+    if (((!this->is_mirror()) && scale_mirror) || (this->is_mirror() && (!scale_mirror)))
         return;
 
-    for (size_t i = 0; i < 3; i++)
-        _center[i] *= k[i];
+    QVector3D tmp_center = _center;
+
+    this->move(-tmp_center);
 
     for (auto& object : _objects)
-        object->scale(scale_mirror, k);
+        object->scale(scale_mirror, k, a);
+
+    this->move(tmp_center);
 
     Model::update();
 }

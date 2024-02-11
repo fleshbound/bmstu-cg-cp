@@ -3,5 +3,4 @@
 void MirrorBuilder::build()
 {
     BaseBuilder::build();
-    BaseBuilder::set_mirror_flag();
 }

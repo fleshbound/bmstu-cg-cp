@@ -6,9 +6,9 @@
 class Triangle: public VisibleObject
 {
 public:
-    Triangle(QVector3D a, QVector3D b, QVector3D c, QVector3D normal, std::shared_ptr<Material> material);
+    Triangle(QVector3D a, QVector3D b, QVector3D c, QVector3D normal, std::shared_ptr<Material> material, const bool& is_mirror);
     void move(const QVector3D &) override;
-    void scale(const bool scale_mirror, const QVector3D& k) override;
+    void scale(const bool scale_mirror, const QVector3D& k, const QVector3D& a = QVector3D(0, 0, 0)) override;
     void update() override;
     bool hit(const Ray& r, const double t_min, const double t_max, HitInfo& hitdata) const override;
 private:

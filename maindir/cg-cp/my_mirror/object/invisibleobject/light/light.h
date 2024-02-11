@@ -8,7 +8,7 @@ class Light: public InvisibleObject
 public:
     Light(const QVector3D& pos, const QVector3D& ints): _pos(pos), _ints(ints) {}
     void move(const QVector3D &) override;
-    void scale(const bool scale_mirror, const QVector3D &) override { throw "can't scale light"; }
+    void scale(const bool scale_mirror, const QVector3D &, const QVector3D& a = QVector3D(0, 0, 0)) override { throw "can't scale light"; }
     void update() override;
     bool hit(const Ray& r, const double t_min, const double t_max, HitInfo& hitdata) const override;
 

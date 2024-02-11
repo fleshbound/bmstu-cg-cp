@@ -12,7 +12,7 @@ public:
     SceneManager(SceneManager &&) noexcept;
 
     std::string draw();
-    std::string edit_object(std::string name, const double& radius_k, const double& angle_k, const double& height_k);
+    std::string edit_object(std::string name, const QVector3D& scale_k, const QVector3D& angle_k);
     std::string edit_mirror(std::string name, const double& radius_k, const QVector3D& reflective, const double& polish, const QVector3D& diffuse);
     std::string edit_light(const QVector3D& d, const QVector3D& color);
     std::string move_and_rotate_camera(const QVector3D& d, const QVector3D& angle);

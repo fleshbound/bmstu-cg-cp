@@ -32,7 +32,7 @@
       <x>10</x>
       <y>9</y>
       <width>1381</width>
-      <height>861</height>
+      <height>868</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -194,12 +194,12 @@
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="spinBox_mirror_polish">
+              <widget class="QSpinBox" name="spinBox_mirror_polish">
                <property name="maximum">
-                <double>100.000000000000000</double>
+                <number>100</number>
                </property>
-               <property name="singleStep">
-                <double>0.500000000000000</double>
+               <property name="value">
+                <number>100</number>
                </property>
               </widget>
              </item>
@@ -215,7 +215,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="spinBox_mirror_radius_k"/>
+              <widget class="QDoubleSpinBox" name="spinBox_mirror_radius_k">
+               <property name="value">
+                <double>0.000000000000000</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -345,16 +349,39 @@
              <item>
               <widget class="QLabel" name="label_7">
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Коэффициент угла наклона &lt;br/&gt;оси симметрии&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Коэффициент угла &lt;br/&gt;наклона оси &lt;br/&gt;симметрии&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="spinBox_object_angle_k">
-               <property name="singleStep">
-                <double>0.010000000000000</double>
+              <widget class="QLabel" name="label_28">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;kx&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="spinBox_object_angle_kx">
+               <property name="minimum">
+                <double>-5.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>5.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_29">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;ky&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="spinBox_object_angle_ky"/>
              </item>
             </layout>
            </item>

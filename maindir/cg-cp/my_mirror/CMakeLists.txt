@@ -126,7 +126,7 @@ set(LOAD_IMAGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/data/gif)
 set(LOAD_IMAGE_DEST_PATH ${CMAKE_CURRENT_BINARY_DIR}/data/gif)
 
 add_compile_definitions(MODELS_FILE="${DEST_MODELS_PATH}/")
-add_compile_definitions(LOAD_PATH="${LOAD_MODELS_DEST_PATH}/load.gif")
+add_compile_definitions(LOAD_PATH="${CMAKE_CURRENT_BINARY_DIR}/data/gif/load.gif")
 add_compile_definitions(MODELS_TYPE=".stl")
 
 add_custom_command(

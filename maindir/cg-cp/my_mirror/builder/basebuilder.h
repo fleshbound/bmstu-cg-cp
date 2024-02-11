@@ -18,7 +18,8 @@ class BaseBuilder
 {
 public:
     BaseBuilder(std::string name, bool is_mirror = false, std::shared_ptr<Material> material = nullptr):
-        _name(name)
+        _name(name),
+        _is_mirror(is_mirror)
     {
         if (material)
             _material = material;
@@ -29,13 +30,13 @@ public:
     }
     virtual void build();
     std::shared_ptr<Model> get_model();
-    void set_mirror_flag();
     std::string get_name();
 
 protected:
     std::shared_ptr<Model> _model;
     std::string _name = "";
     std::shared_ptr<Material> _material;
+    bool _is_mirror;
 
     std::shared_ptr<Material> std_mirror_material =
             std::make_shared<Material>(

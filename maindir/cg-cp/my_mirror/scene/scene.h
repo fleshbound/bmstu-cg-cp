@@ -39,20 +39,21 @@ public:
     void move_camera(const QVector3D& d);
     void change_object_and_mirror(std::string obj_name, std::string mir_name);
     void change_light_color(const QVector3D& color);
-    void change_object_geometry(const QVector3D& k);
+    void change_object_geometry(const QVector3D& k, const QVector3D& a = QVector3D(0, 0, 0));
     void change_mirror_geometry(const QVector3D& k);
     void change_mirror_material(const QVector3D& reflective, const double& polish, const QVector3D& diffuse);
     bool is_name_on_scene(std::string name);
     std::string get_object_name();
     std::string get_mirror_name();
+    void update_models();
+    void start();
 
 private:
-    void _start();
     int _get_builder_id_by_name(std::string);
     QVector3D trace(const Ray& r, const int depth, HitInfo& hitdata);
 
     std::vector<std::shared_ptr<Object>> _objects;
-    std::vector<int> _builder_ids = {0, 9}; // 0: object, 1: mirror
+    std::vector<int> _builder_ids = {2, 9}; // 0: object, 1: mirror
     std::vector<BaseBuilder> _builders;
     std::shared_ptr<Camera> _camera;
     std::shared_ptr<Light> _light;

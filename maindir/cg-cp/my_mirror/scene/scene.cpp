@@ -2,10 +2,10 @@
 
 Scene::Scene(std::shared_ptr<QPixmap> pixmap)
 {
-    _camera = std::make_shared<Camera>(QVector3D(-200, -200, -200),
-                                       QVector3D(1, 1, 1),
+    _camera = std::make_shared<Camera>(QVector3D(-200, -200, 200),
+                                       QVector3D(1, 1, -1),
                                        static_cast<double>(pixmap->width()) / pixmap->height());
-    _light = std::make_shared<Light>(QVector3D(-200, -200, 100), QVector3D(1, 1, 1));
+    _light = std::make_shared<Light>(QVector3D(200, 200, 200), QVector3D(1, 1, 1));
     _builders = {
         ConeBuilder(),
         CylinderBuilder(),
@@ -21,8 +21,7 @@ Scene::Scene(std::shared_ptr<QPixmap> pixmap)
         MirrorConcaveBuilder()
     };
     _pixmap = pixmap;
-    change_object_and_mirror("sphere", "mirrorplane");
-    _start();
+    start();
     draw();
 }
 
@@ -35,10 +34,29 @@ int Scene::_get_builder_id_by_name(std::string name)
     return 0;
 }
 
-void Scene::_start()
+void Scene::start()
 {
     std::vector<std::shared_ptr<Object>> objects;
     std::mutex mutex_set[2];
+    std::vector<QVector3D> k{QVector3D(1, 1, 1)};
+    std::vector<QVector3D> d{QVector3D(-100, 0, -15)};
+    std::vector<bool> f{false, true};
+
+    if (_builder_ids[1] == 9)
+    {
+        k.emplace_back(QVector3D(5, 5, 5));
+        d.emplace_back(QVector3D(50, 0, 0));
+    }
+    else if (_builder_ids[1] == 10)
+    {
+        k.emplace_back(QVector3D(6, 6, 6));
+        d.emplace_back(QVector3D(20, 0, 0));
+    }
+    else if (_builder_ids[1] == 10)
+    {
+        k.emplace_back(QVector3D(5, 5, 5));
+        d.emplace_back(QVector3D(50, 0, 0));
+    }
 
     tbb::parallel_for(0, 2, [&](std::size_t i)
     {
@@ -47,7 +65,48 @@ void Scene::_start()
         _builders[id].build();
         std::shared_ptr<Model> model(_builders[id].get_model());
         mutex_set[i].unlock();
-        if (i == 1) model->move(QVector3D(100, 100, 0));
+        model->scale(f[i], k[i]);
+        model->move(d[i]);
+        objects.emplace_back(model);
+    });
+
+    _objects = objects;
+    _models = std::make_shared<KDtree>(objects);
+}
+
+void Scene::update_models()
+{
+    std::vector<std::shared_ptr<Object>> objects;
+    std::mutex mutex_set[2];
+    std::vector<QVector3D> k{QVector3D(1, 1, 1)};
+    std::vector<QVector3D> d{QVector3D(-100, 0, -15)};
+    std::vector<bool> f{false, true};
+
+    if (_builder_ids[1] == 9)
+    {
+        k.emplace_back(QVector3D(5, 5, 5));
+        d.emplace_back(QVector3D(50, 0, 0));
+    }
+    else if (_builder_ids[1] == 10)
+    {
+        k.emplace_back(QVector3D(6, 6, 6));
+        d.emplace_back(QVector3D(20, 0, 0));
+    }
+    else if (_builder_ids[1] == 10)
+    {
+        k.emplace_back(QVector3D(1, 1, 1));
+        d.emplace_back(QVector3D(50, 0, 0));
+    }
+
+    tbb::parallel_for(0, 2, [&](std::size_t i)
+    {
+        int id = _builder_ids[i];
+        mutex_set[i].lock();
+        _builders[id].build();
+        std::shared_ptr<Model> model(_builders[id].get_model());
+        mutex_set[i].unlock();
+        model->scale(f[i], k[i]);
+        model->move(d[i]);
         objects.emplace_back(model);
     });
 
@@ -152,7 +211,7 @@ void Scene::change_object_and_mirror(std::string obj_name, std::string mir_name)
 
 bool Scene::is_name_on_scene(std::string name)
 {
-    if (get_object_name().compare(name) == 0 || get_mirror_name().compare(name))
+    if (get_object_name().compare(name) == 0 || get_mirror_name().compare(name) == 0)
         return true;
 
     return false;
@@ -173,18 +232,32 @@ void Scene::change_light_color(const QVector3D& color)
     _light->set_ints(color);
 }
 
-void Scene::change_object_geometry(const QVector3D& k)
+void Scene::change_object_geometry(const QVector3D& k, const QVector3D& a)
 {
+    std::vector<std::shared_ptr<Object>> objects;
+
     for (auto& object : _objects)
-        object->scale(false, k);
-    _start();
+    {
+        object->scale(false, k, a);
+        objects.emplace_back(object);
+    }
+
+    _objects = objects;
+    _models = std::make_shared<KDtree>(objects);
 }
 
 void Scene::change_mirror_geometry(const QVector3D& k)
 {
+    std::vector<std::shared_ptr<Object>> objects;
+
     for (auto& object : _objects)
-        object->scale(true, k);
-    _start();
+    {
+        object->scale(true, k, QVector3D(0, 0, 0));
+        objects.emplace_back(object);
+    }
+
+    _objects = objects;
+    _models = std::make_shared<KDtree>(objects);
 }
 
 void Scene::change_mirror_material(const QVector3D& reflective, const double& polish, const QVector3D& diffuse)

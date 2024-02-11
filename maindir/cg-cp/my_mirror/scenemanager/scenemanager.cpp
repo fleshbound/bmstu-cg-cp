@@ -13,21 +13,18 @@ std::string SceneManager::draw()
     return _msg;
 }
 
-std::string SceneManager::edit_object(std::string name, const double& radius_k, const double& angle_k, const double& height_k)
+std::string SceneManager::edit_object(std::string name, const QVector3D& scale_k, const QVector3D& angle_k)
 {
     if (!_scene->is_name_on_scene(name))
         _scene->change_object_and_mirror(name, "");
 
-    std::string cur_name = _scene->get_object_name();
-
-    if (std::abs(radius_k) > 1e-8)
-        _scene->change_object_geometry(QVector3D(radius_k, radius_k, 1));
-
-    if (std::abs(height_k) > 1e-8)
-        _scene->change_object_geometry(QVector3D(1, 1, height_k));
-
-    if (std::abs(angle_k) > 1e-8)
-    {}
+    if ((std::abs(scale_k.length()) > 1e-8) || (std::abs(angle_k.length()) > 1e-8))
+    {
+        _scene->update_models();
+        _scene->change_object_geometry(scale_k, angle_k);
+    }
+    else
+        _scene->start();
 
     _msg = "";
     return _msg;
@@ -38,6 +35,11 @@ std::string SceneManager::edit_mirror(std::string name, const double& radius_k, 
     if (!_scene->is_name_on_scene(name))
         _scene->change_object_and_mirror("", name);
 
+    if (radius_k > 0)
+        _scene->update_models();
+    else
+        _scene->start();
+
     std::string cur_name = _scene->get_mirror_name();
 
     if (cur_name.find("con", 0, cur_name.size() - 1) > 0)
@@ -45,7 +47,6 @@ std::string SceneManager::edit_mirror(std::string name, const double& radius_k, 
             _scene->change_mirror_geometry(QVector3D(radius_k, radius_k, 1)); // меньше k - больше радиус крив.
 
     _scene->change_mirror_material(reflective, polish, diffuse);
-
     _msg = "";
     return _msg;
 }
@@ -60,10 +61,10 @@ std::string SceneManager::edit_light(const QVector3D& d, const QVector3D& color)
 
 std::string SceneManager::move_and_rotate_camera(const QVector3D& d, const QVector3D& angle)
 {
-    if (std::abs(d.length()) > 1e-8)
+    if (std::abs(d.x()) > 1e-8 || std::abs(d.y()) > 1e-8 || std::abs(d.z()) > 1e-8)
         _scene->move_camera(d);
 
-    if (std::abs(angle.length()) > 1e-8)
+    if (std::abs(angle.x()) > 1e-8 || std::abs(angle.y()) > 1e-8 || std::abs(angle.z()) > 1e-8)
         _scene->rotate_camera(angle);
 
     _msg = "";

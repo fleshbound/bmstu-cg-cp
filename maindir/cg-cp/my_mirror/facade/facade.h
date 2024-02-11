@@ -10,6 +10,7 @@ public:
     Facade(std::shared_ptr<QPixmap> pixmap):
         _manager(std::make_shared<SceneManager>(pixmap))
     {}
+
     ~Facade() = default;
     std::string execute(BaseCommand *command);
 

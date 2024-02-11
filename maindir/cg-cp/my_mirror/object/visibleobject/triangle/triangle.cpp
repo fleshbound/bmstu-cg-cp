@@ -1,6 +1,6 @@
 #include "object/visibleobject/triangle/triangle.h"
 
-Triangle::Triangle(QVector3D a, QVector3D b, QVector3D c, QVector3D normal, std::shared_ptr<Material> material)
+Triangle::Triangle(QVector3D a, QVector3D b, QVector3D c, QVector3D normal, std::shared_ptr<Material> material, const bool& is_mirror)
 {
     _points[0] = a;
     _points[1] = b;
@@ -8,6 +8,7 @@ Triangle::Triangle(QVector3D a, QVector3D b, QVector3D c, QVector3D normal, std:
     _material = material;
     _normal = normal;
     _normal.normalize();
+    _is_mirror = is_mirror;
 
     Triangle::update();
 }
@@ -24,17 +25,17 @@ void Triangle::move(const QVector3D& d)
     Triangle::update();
 }
 
-void Triangle::scale(const bool scale_mirror, const QVector3D& k)
+void Triangle::scale(const bool scale_mirror, const QVector3D& k, const QVector3D& a)
 {
-    if ((!this->is_mirror() && scale_mirror) || (this->is_mirror() && !scale_mirror))
+    if (((!this->is_mirror()) && scale_mirror) || (this->is_mirror() && (!scale_mirror)))
         return;
 
     for (size_t i = 0; i < 3; i++)
         for (size_t j = 0; j < 3; j++)
-            _points[i][j] *= k[j];
+            _points[i][j] = _points[i][j] * k[j] + _points[i][2] * a[i];
 
     for (size_t i = 0; i < 3; i++)
-        _center[i] *= k[i];
+        _center[i] = _center[i] * k[i] + _center[2] * a[i];
 
     Triangle::update();
 }
@@ -54,45 +55,10 @@ void Triangle::update()
     _center = {(_points[0].x() + _points[1].x() + _points[2].x()) / 3,
                (_points[0].y() + _points[1].y() + _points[2].y()) / 3,
                (_points[0].z() + _points[1].z() + _points[2].z()) / 3};
-    //printf("NEWtricenter:%f, %f, %f", _center[0], _center[1], _center[2]);
 }
 
 bool Triangle::hit(const Ray& r, const double t_min, const double t_max, HitInfo& hitdata) const
 {
-    /*
-   // printf("start hit triangle\n");
-    QVector3D d = r.get_direction();
-    QVector3D e1 = _points[1] - _points[0];
-    QVector3D e2 = _points[2] - _points[0];
-    QVector3D p = QVector3D::crossProduct(d, e2);
-    double det = QVector3D::dotProduct(p, e2);
-
-    if (std::abs(det) < 1e-8f)
-        return false;
-
-    QVector3D o = r.get_origin();
-    QVector3D tvec = o - _points[0];
-    QVector3D q = QVector3D::crossProduct(tvec, e1);
-    double inv_det = 1 / det;
-    double u = QVector3D::dotProduct(p, tvec) * inv_det;
-    double v = QVector3D::dotProduct(q, d) * inv_det;
-
-    if ((u < 0) || (v < 0) || (u + v > 1))
-        return false;
-
-    double t = QVector3D::dotProduct(q, e2) * inv_det;
-
-    if ((t > t_max) || (t < t_min))
-        return false;
-
-    hitdata.t = t;
-    hitdata.point = r.get_point_by_t(t);
-    QVector3D normal = QVector3D::crossProduct(e1, e2).normalized();
-    hitdata.normal = normal;
-    hitdata.material = _material;
-    hitdata.object = shared_from_this();
-
-    return true;*/
     QVector3D edge1 = _points[1] - _points[0];
     QVector3D edge2 = _points[2] - _points[0];
     QVector3D e1e2 =(QVector3D::crossProduct(edge1, edge2)).normalized();
@@ -112,28 +78,19 @@ bool Triangle::hit(const Ray& r, const double t_min, const double t_max, HitInfo
     QVector3D qvec = QVector3D::crossProduct(tvec, edge1);
     double v = QVector3D::dotProduct(r.get_direction(), qvec) * inv_det;
 
-//    printf("%f %f %f ", u, v, u + v);
     if (u < 0.0f || v < 0.0f || (u + v) > 1.0f)
-    {
-    //    printf("|-> uv - no\n");
         return false;
-    }
 
     double t = QVector3D::dotProduct(edge2, qvec) * inv_det;
-    //printf(" tmin: %f, tmax: %f, t: %f ", t_min, t_max, t);
 
     if (t > t_max || t < t_min)
-    {
-    //    printf(" |---> t -- no\n");
         return false;
-    }
 
     hitdata.t = t;
     hitdata.point = r.get_point_by_t(t);
     hitdata.normal = (QVector3D::crossProduct(edge1, edge2)).normalized();
     hitdata.material = _material;
     hitdata.object = shared_from_this();
-   // printf("YES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
     return true;
 }

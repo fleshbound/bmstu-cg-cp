@@ -9,7 +9,7 @@ class Object: public std::enable_shared_from_this<Object>
 {
 public:
     virtual void move(const QVector3D &) = 0;
-    virtual void scale(const bool scale_mirror, const QVector3D &) = 0;
+    virtual void scale(const bool scale_mirror, const QVector3D &, const QVector3D& a = QVector3D(0, 0, 0)) = 0;
     virtual bool is_visible() = 0;
     virtual void update() = 0;
     virtual void set_material(const QVector3D& reflective, const double& polish, const QVector3D& diffuse) {};

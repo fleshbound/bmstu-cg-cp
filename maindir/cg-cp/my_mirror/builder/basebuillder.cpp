@@ -13,12 +13,13 @@ void BaseBuilder::build()
         for (size_t icorner = 0; icorner < 3; icorner++)
         {
             const float *c = mesh.tri_corner_coords(itri, icorner);
-            printf("%lf %lf %lf\n", c[0], c[1], c[2]);
+            //printf("%lf %lf %lf\n", c[0], c[1], c[2]);
             p[icorner] = QVector3D(c[0], c[1], c[2]);
         }
 
         const float *n = mesh.tri_normal(itri);
         QVector3D normal(n[0], n[1], n[2]);
+        //printf("%s", _name.c_str());
         _model->add(std::make_shared<Triangle>(p[0], p[1], p[2], normal, _material));
     }
 

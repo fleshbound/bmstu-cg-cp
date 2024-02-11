@@ -40,6 +40,8 @@ private slots:
     void on_pushButton_light_color_clicked();
     void on_pushButton_object_color_clicked();
 
+    void on_pushButton_edit_camera_clicked();
+
 private:
     MainWindow& _load_models() { return *this; }
     MainWindow& _update_scene() { return *this; }

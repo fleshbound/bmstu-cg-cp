@@ -42,7 +42,7 @@ std::string SceneManager::edit_mirror(std::string name, const double& radius_k, 
 
     if (cur_name.find("con", 0, cur_name.size() - 1) > 0)
         if (std::abs(radius_k) > 1e-8)
-            _scene->change_mirror_geometry(QVector3D(radius_k, 1, 1)); // меньше k - больше радиус крив.
+            _scene->change_mirror_geometry(QVector3D(radius_k, radius_k, 1)); // меньше k - больше радиус крив.
 
     _scene->change_mirror_material(reflective, polish, diffuse);
 

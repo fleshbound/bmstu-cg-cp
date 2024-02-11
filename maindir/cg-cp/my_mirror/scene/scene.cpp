@@ -2,15 +2,10 @@
 
 Scene::Scene(std::shared_ptr<QPixmap> pixmap)
 {
-    qInfo( "scene: start creating" );
-    qInfo( "camera: create" );
-
-    _camera = std::make_shared<Camera>(QVector3D(-150, -150, -150),
-                                       QVector3D(1, 1, 0.1),
+    _camera = std::make_shared<Camera>(QVector3D(-200, -200, -200),
+                                       QVector3D(1, 1, 1),
                                        static_cast<double>(pixmap->width()) / pixmap->height());
-    qInfo( "light: create" );
-
-    _light = std::make_shared<Light>(QVector3D(-150, -150, -150), QVector3D(1, 1, 1));
+    _light = std::make_shared<Light>(QVector3D(-200, -200, 100), QVector3D(1, 1, 1));
     _builders = {
         ConeBuilder(),
         CylinderBuilder(),
@@ -26,7 +21,7 @@ Scene::Scene(std::shared_ptr<QPixmap> pixmap)
         MirrorConcaveBuilder()
     };
     _pixmap = pixmap;
-    change_object_and_mirror("sphere", "mirrorconvex");
+    change_object_and_mirror("sphere", "mirrorplane");
     _start();
     draw();
 }
@@ -44,7 +39,6 @@ void Scene::_start()
 {
     std::vector<std::shared_ptr<Object>> objects;
     std::mutex mutex_set[2];
-    qInfo( "scene: start _start" );
 
     tbb::parallel_for(0, 2, [&](std::size_t i)
     {
@@ -53,15 +47,9 @@ void Scene::_start()
         _builders[id].build();
         std::shared_ptr<Model> model(_builders[id].get_model());
         mutex_set[i].unlock();
-
-        if (i == 1)
-            model->scale(true, QVector3D(40, 40, 40));
-
-        model->move(QVector3D(50 * (2 - i), 50 * (2 - i), 0));
+        if (i == 1) model->move(QVector3D(100, 100, 0));
         objects.emplace_back(model);
     });
-
-    qInfo( "scene: end _start" );
 
     _objects = objects;
     _models = std::make_shared<KDtree>(objects);
@@ -71,9 +59,7 @@ QVector3D Scene::trace(const Ray& r, const int depth, HitInfo& hitdata)
 {
     QVector3D ints(0.1, 0.1, 0.1);
 
-    bool hit = _models->hit(r, -1e-3f, MAXFLOAT, hitdata);
-
-    if (hit)
+    if (_models->hit(r, -1e-3f, MAXFLOAT, hitdata))
     {
         const Ray rayl = _light->get_ray(hitdata.point);
         HitInfo l_hitdata;
@@ -99,8 +85,6 @@ QVector3D Scene::trace(const Ray& r, const int depth, HitInfo& hitdata)
 
         if (depth < 3 && (reflection_power.x() || reflection_power.y() || reflection_power.z()))
             ints += hitdata.material->get_reflective() * trace(r_ray, depth + 1, tmp_data);
-
-        printf("ints[]: %lf, %lf, %lf\n", ints[0], ints[1], ints[2]);
     }
 
     return ints;

@@ -39,17 +39,17 @@ protected:
 
     std::shared_ptr<Material> std_mirror_material =
             std::make_shared<Material>(
-                QVector3D(0.1, 0.1, 0.1),
+                QVector3D(0.3, 0.3, 0.3),
                 QVector3D(0.8, 0.6, 0.48),
-                QVector3D(0.8, 0.8, 0.8),
+                QVector3D(0.9, 0.9, 0.9),
                 100
             );
 
     std::shared_ptr<Material> std_object_material =
             std::make_shared<Material>(
-                QVector3D(0.1, 0.1, 0.1),
-                QVector3D(0.5, 0.6, 0.48),
                 QVector3D(0.3, 0.3, 0.3),
+                QVector3D(0.5, 0.6, 0.48),
+                QVector3D(0.2, 0.2, 0.2),
                 60
             );
 };

@@ -12,14 +12,15 @@ Camera::Camera(const QVector3D& pos, const QVector3D& view, const double k):
 void Camera::move(const QVector3D& d)
 {
     _center += d;
+    _update_view = (_view - _center).normalized();
     Camera::update();
 }
 
 void Camera::update()
 {
-    double h = 2 * 1 * std::tan(60 * M_PI / 180 / 2);
+    double h = 2 * std::tan(60 * M_PI / 180 / 2);
     double w = _k * h;
-    _horizontal = QVector3D::crossProduct(_update_view, _up).normalized();
+    _horizontal = (QVector3D::crossProduct(_update_view, _up)).normalized();
     _vertical = QVector3D::crossProduct(_horizontal, _update_view);
 
     _horizontal *= w;

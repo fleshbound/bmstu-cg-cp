@@ -15,7 +15,7 @@ bool BBox::hit(const Ray& r) const
     QVector3D d = r.get_direction();
     QVector3D o = r.get_origin();
 
-    if (std::abs(d.length()) < 1e-8 || (std::abs(d.x()) && std::abs(d.y()) && std::abs(d.z())))
+    if (std::abs(d.length()) < 1e-8 || ((std::abs(d.x()) < 1e-8) || (std::abs(d.y()) < 1e-8) || (std::abs(d.z()) < 1e-8)))
         return false;
 
     QVector3D inv_d = QVector3D(1, 1, 1) / d;
@@ -61,8 +61,6 @@ bool BBox::hit(const Ray& r) const
         if (t < 0)
             return false;
     }
-
-    printf("hit bbox\n");
 
     return true;
 }

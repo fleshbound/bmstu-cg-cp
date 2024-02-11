@@ -100,8 +100,6 @@ std::shared_ptr<KDtree::KDnode> KDtree::_create_tree(std::vector<std::shared_ptr
 
 void KDtree::KDnode::update()
 {
-    //qInfo( "update kdnode" );
-
     if (left)
     {
         left->update();
@@ -178,17 +176,13 @@ bool KDtree::KDnode::hit(const Ray& r, const double t_min, const double t_max, H
     }
 
     if (hit_ri || hit_le)
-    {
-        printf("hit kdnode\n");
         return true;
-    }
 
     double closest_t = tmp_t_max;
-    HitInfo bufferdata;
 
     for (const auto object : objects)
-        if (object->hit(r, t_min, closest_t, bufferdata))
+        if (object->hit(r, t_min, closest_t, hitdata))
             closest_t = hitdata.t;
 
-    return closest_t < t_max;
+    return closest_t < tmp_t_max;
 }

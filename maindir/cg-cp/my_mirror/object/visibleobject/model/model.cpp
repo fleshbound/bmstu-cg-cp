@@ -2,8 +2,11 @@
 
 void Model::move(const QVector3D& d)
 {
+    //printf("oldcenter:%f, %f, %f", _center[0], _center[1], _center[2]);
     for (size_t i = 0; i < 3; i++)
         _center[i] += d[i];
+    //printf("new:%f, %f, %f", _center[0], _center[1], _center[2]);
+
 
     for (auto& object : _objects)
         object->move(d);

@@ -19,7 +19,7 @@ void Triangle::move(const QVector3D& d)
             _points[i][j] += d[j];
 
     for (size_t i = 0; i < 3; i++)
-        _center[i] = d[i];
+        _center[i] += d[i];
 
     Triangle::update();
 }
@@ -54,10 +54,13 @@ void Triangle::update()
     _center = {(_points[0].x() + _points[1].x() + _points[2].x()) / 3,
                (_points[0].y() + _points[1].y() + _points[2].y()) / 3,
                (_points[0].z() + _points[1].z() + _points[2].z()) / 3};
+    //printf("NEWtricenter:%f, %f, %f", _center[0], _center[1], _center[2]);
 }
 
 bool Triangle::hit(const Ray& r, const double t_min, const double t_max, HitInfo& hitdata) const
 {
+    /*
+   // printf("start hit triangle\n");
     QVector3D d = r.get_direction();
     QVector3D e1 = _points[1] - _points[0];
     QVector3D e2 = _points[2] - _points[0];
@@ -88,7 +91,49 @@ bool Triangle::hit(const Ray& r, const double t_min, const double t_max, HitInfo
     hitdata.normal = normal;
     hitdata.material = _material;
     hitdata.object = shared_from_this();
-    printf("hit triangle\n");
+
+    return true;*/
+    QVector3D edge1 = _points[1] - _points[0];
+    QVector3D edge2 = _points[2] - _points[0];
+    QVector3D e1e2 =(QVector3D::crossProduct(edge1, edge2)).normalized();
+
+    if (QVector3D::dotProduct(e1e2, r.get_direction()) < 1e-9f)
+        e1e2 = -e1e2;
+
+    QVector3D pvec = QVector3D::crossProduct(r.get_direction(), edge2);
+    double det = QVector3D::dotProduct(edge1, pvec);
+
+    if (det <= 1e-9f)
+        return false;
+
+    float inv_det = 1.0f / det;
+    QVector3D tvec = r.get_origin() - _points[0];
+    double u = QVector3D::dotProduct(tvec, pvec) * inv_det;
+    QVector3D qvec = QVector3D::crossProduct(tvec, edge1);
+    double v = QVector3D::dotProduct(r.get_direction(), qvec) * inv_det;
+
+//    printf("%f %f %f ", u, v, u + v);
+    if (u < 0.0f || v < 0.0f || (u + v) > 1.0f)
+    {
+    //    printf("|-> uv - no\n");
+        return false;
+    }
+
+    double t = QVector3D::dotProduct(edge2, qvec) * inv_det;
+    //printf(" tmin: %f, tmax: %f, t: %f ", t_min, t_max, t);
+
+    if (t > t_max || t < t_min)
+    {
+    //    printf(" |---> t -- no\n");
+        return false;
+    }
+
+    hitdata.t = t;
+    hitdata.point = r.get_point_by_t(t);
+    hitdata.normal = (QVector3D::crossProduct(edge1, edge2)).normalized();
+    hitdata.material = _material;
+    hitdata.object = shared_from_this();
+   // printf("YES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
     return true;
 }

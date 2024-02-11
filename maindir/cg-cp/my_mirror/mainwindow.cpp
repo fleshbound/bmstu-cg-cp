@@ -48,6 +48,7 @@ MainWindow& MainWindow::_make_connects()
     connect(ui->pushButton_edit_light, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_light_clicked);
     connect(ui->pushButton_edit_mirror, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_mirror_clicked);
     connect(ui->pushButton_edit_object, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_object_clicked);
+    connect(ui->pushButton_edit_camera, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_camera_clicked);
     return *this;
 }
 
@@ -170,7 +171,7 @@ void MainWindow::on_pushButton_edit_object_clicked()
 
 void MainWindow::on_pushButton_object_color_clicked()
 {
-    QString title = "Выбор цвета зекркала";
+    QString title = "Выбор цвета зекрала";
     QColor color = QColorDialog::getColor(last_mirror_color, this, title, QColorDialog::DontUseNativeDialog);
 
     if (color.isValid())
@@ -214,5 +215,27 @@ void MainWindow::on_pushButton_light_color_clicked()
         ui->label_light_color->setPalette(sample_palette);
         last_light_color = color;
     }
+}
+
+
+void MainWindow::on_pushButton_edit_camera_clicked()
+{
+    double dx = ui->spinBox_camera_dx->value();
+    double dy = ui->spinBox_camera_dy->value();
+    double dz = ui->spinBox_camera_dz->value();
+
+    double ax = ui->spinBox_camera_angle_x->value();
+    double ay = ui->spinBox_camera_angle_y->value();
+    double az = ui->spinBox_camera_angle_z->value();
+
+    QVector3D d(dx, dy, dz);
+    QVector3D angle(ax, ay, az);
+
+    MoveAndRotateCamera *command = new MoveAndRotateCamera(d, angle);
+
+    if (_execute_with_wait(command))
+        _draw();
+
+    delete command;
 }
 

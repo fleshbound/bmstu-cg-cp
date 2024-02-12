@@ -45,7 +45,6 @@ public:
     bool is_name_on_scene(std::string name);
     std::string get_object_name();
     std::string get_mirror_name();
-    void update_models();
     void start();
 
 private:

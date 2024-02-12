@@ -2,6 +2,8 @@
 
 void Model::move(const QVector3D& d)
 {
+    this->_update_center();
+
     for (size_t i = 0; i < 3; i++)
         _center[i] += d[i];
 
@@ -11,11 +13,26 @@ void Model::move(const QVector3D& d)
     Model::update();
 }
 
+void Model::_update_center()
+{
+    int i = 0;
+    QVector3D sum_c(0, 0, 0);
+
+    for (auto& object: _objects)
+    {
+        i++;
+        sum_c += object->get_center();
+    }
+
+    _center = sum_c / i;
+}
+
 void Model::scale(const bool scale_mirror, const QVector3D& k, const QVector3D& a)
 {
     if (((!this->is_mirror()) && scale_mirror) || (this->is_mirror() && (!scale_mirror)))
         return;
 
+    this->_update_center();
     QVector3D tmp_center = _center;
 
     this->move(-tmp_center);
@@ -52,4 +69,5 @@ void Model::generate_kd_tree()
 void Model::add(std::shared_ptr<Object> object)
 {
     _objects.emplace_back(object);
+
 }

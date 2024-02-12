@@ -32,10 +32,12 @@ void Triangle::scale(const bool scale_mirror, const QVector3D& k, const QVector3
 
     for (size_t i = 0; i < 3; i++)
         for (size_t j = 0; j < 3; j++)
-            _points[i][j] = _points[i][j] * k[j] + _points[i][2] * a[i];
+        {
+            _points[i][j] *= k[j];
 
-    for (size_t i = 0; i < 3; i++)
-        _center[i] = _center[i] * k[i] + _center[2] * a[i];
+            if (!this->is_mirror())
+                _points[i][j] += _points[i][2] * a[j];
+        }
 
     Triangle::update();
 }

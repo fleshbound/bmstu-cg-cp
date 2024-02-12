@@ -20,6 +20,7 @@ public:
     void add(std::shared_ptr<Object> object);
 
 protected:
+    void _update_center();
     std::vector<std::shared_ptr<Object>> _objects;
     std::shared_ptr<KDtree> _kdtree;
     bool _has_kdtree = false;

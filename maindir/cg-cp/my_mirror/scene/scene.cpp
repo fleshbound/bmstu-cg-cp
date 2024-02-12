@@ -5,7 +5,7 @@ Scene::Scene(std::shared_ptr<QPixmap> pixmap)
     _camera = std::make_shared<Camera>(QVector3D(-200, -200, 200),
                                        QVector3D(1, 1, -1),
                                        static_cast<double>(pixmap->width()) / pixmap->height());
-    _light = std::make_shared<Light>(QVector3D(200, 200, 200), QVector3D(1, 1, 1));
+    _light = std::make_shared<Light>(QVector3D(-200, -200, 200), QVector3D(1, 1, 1));
     _builders = {
         ConeBuilder(),
         CylinderBuilder(),
@@ -52,50 +52,10 @@ void Scene::start()
         k.emplace_back(QVector3D(6, 6, 6));
         d.emplace_back(QVector3D(20, 0, 0));
     }
-    else if (_builder_ids[1] == 10)
+    else if (_builder_ids[1] == 11)
     {
-        k.emplace_back(QVector3D(5, 5, 5));
-        d.emplace_back(QVector3D(50, 0, 0));
-    }
-
-    tbb::parallel_for(0, 2, [&](std::size_t i)
-    {
-        int id = _builder_ids[i];
-        mutex_set[i].lock();
-        _builders[id].build();
-        std::shared_ptr<Model> model(_builders[id].get_model());
-        mutex_set[i].unlock();
-        model->scale(f[i], k[i]);
-        model->move(d[i]);
-        objects.emplace_back(model);
-    });
-
-    _objects = objects;
-    _models = std::make_shared<KDtree>(objects);
-}
-
-void Scene::update_models()
-{
-    std::vector<std::shared_ptr<Object>> objects;
-    std::mutex mutex_set[2];
-    std::vector<QVector3D> k{QVector3D(1, 1, 1)};
-    std::vector<QVector3D> d{QVector3D(-100, 0, -15)};
-    std::vector<bool> f{false, true};
-
-    if (_builder_ids[1] == 9)
-    {
-        k.emplace_back(QVector3D(5, 5, 5));
-        d.emplace_back(QVector3D(50, 0, 0));
-    }
-    else if (_builder_ids[1] == 10)
-    {
-        k.emplace_back(QVector3D(6, 6, 6));
+        k.emplace_back(QVector3D(30, 30, 30));
         d.emplace_back(QVector3D(20, 0, 0));
-    }
-    else if (_builder_ids[1] == 10)
-    {
-        k.emplace_back(QVector3D(1, 1, 1));
-        d.emplace_back(QVector3D(50, 0, 0));
     }
 
     tbb::parallel_for(0, 2, [&](std::size_t i)
@@ -252,7 +212,7 @@ void Scene::change_mirror_geometry(const QVector3D& k)
 
     for (auto& object : _objects)
     {
-        object->scale(true, k, QVector3D(0, 0, 0));
+        object->scale(true, k);
         objects.emplace_back(object);
     }
 

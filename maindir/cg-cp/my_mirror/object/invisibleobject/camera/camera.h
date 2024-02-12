@@ -15,8 +15,6 @@ public:
 
     QVector3D get_pos() const;
     QVector3D get_view() const;
-    void set_pos(const QVector3D& new_pos);
-    void set_view(const QVector3D& new_view);
     void rotate(const QVector3D& angle);
     Ray get_ray(const double i, const double j) const;
 

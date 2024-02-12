@@ -10,15 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->drawLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     this->setWindowTitle("Bad Mirror");
 
-    // int w = this->frameGeometry().width();
-    // int h = this->frameGeometry().height();
-    this->setGeometry(0, 0, 1200, 900);
+    this->setGeometry(0, 0, 1400, 900);
     _scene = std::make_shared<QPixmap>(1000, 900);
     qInfo( "start creating facade" );
     _facade = std::unique_ptr<Facade>(new Facade(_scene));
     qInfo( "facade: done" );
     _add_variants();
-    _make_connects();
     ui->drawLabel->setPixmap(*_scene);
     qInfo( "end mainwindow" );
 }
@@ -41,15 +38,6 @@ bool MainWindow::_execute_with_wait(BaseCommand *command)
     }
 
     return true;
-}
-
-MainWindow& MainWindow::_make_connects()
-{
-    connect(ui->pushButton_edit_light, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_light_clicked);
-    connect(ui->pushButton_edit_mirror, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_mirror_clicked);
-    connect(ui->pushButton_edit_object, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_object_clicked);
-    connect(ui->pushButton_edit_camera, &QPushButton::clicked, this, &MainWindow::on_pushButton_edit_camera_clicked);
-    return *this;
 }
 
 void MainWindow::_draw()
@@ -174,6 +162,12 @@ void MainWindow::on_pushButton_edit_object_clicked()
     double height_k = ui->spinBox_object_height_k->value();
     double angle_kx = ui->spinBox_object_angle_kx->value();
     double angle_ky = ui->spinBox_object_angle_ky->value();
+
+    if (radius_k == 0)
+        radius_k = 1;
+
+    if (height_k == 0)
+        height_k = 1;
 
     QVector3D scale_k(radius_k, radius_k, height_k);
     QVector3D angle_k(angle_kx, angle_ky, 0);

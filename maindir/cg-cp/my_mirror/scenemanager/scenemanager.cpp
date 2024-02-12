@@ -18,13 +18,10 @@ std::string SceneManager::edit_object(std::string name, const QVector3D& scale_k
     if (!_scene->is_name_on_scene(name))
         _scene->change_object_and_mirror(name, "");
 
+    _scene->start();
+
     if ((std::abs(scale_k.length()) > 1e-8) || (std::abs(angle_k.length()) > 1e-8))
-    {
-        _scene->update_models();
         _scene->change_object_geometry(scale_k, angle_k);
-    }
-    else
-        _scene->start();
 
     _msg = "";
     return _msg;
@@ -35,10 +32,7 @@ std::string SceneManager::edit_mirror(std::string name, const double& radius_k, 
     if (!_scene->is_name_on_scene(name))
         _scene->change_object_and_mirror("", name);
 
-    if (radius_k > 0)
-        _scene->update_models();
-    else
-        _scene->start();
+    _scene->start();
 
     std::string cur_name = _scene->get_mirror_name();
 

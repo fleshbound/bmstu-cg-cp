@@ -44,18 +44,6 @@ QVector3D Camera::get_view() const
     return _view;
 }
 
-void Camera::set_pos(const QVector3D& new_pos)
-{
-    _center = new_pos;
-    Camera::update();
-}
-
-void Camera::set_view(const QVector3D& new_view)
-{
-    _view = new_view;
-    Camera::update();
-}
-
 void Camera::rotate(const QVector3D& angle)
 {
     double cosX = std::cos(angle.x());

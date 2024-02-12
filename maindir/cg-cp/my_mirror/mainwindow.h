@@ -45,7 +45,6 @@ private slots:
 private:
     MainWindow& _load_models() { return *this; }
     MainWindow& _update_scene() { return *this; }
-    MainWindow& _make_connects();
     MainWindow& _add_variants();
     bool _execute_with_wait(BaseCommand *command);
     void _draw();

@@ -22,7 +22,6 @@ public:
     QVector3D get_reflective() const;
     QVector3D get_ambient() const;
     double get_polish() const;
-    //QVector3D get_color() const;
     Ray get_reflect_ray(const Ray& r, const HitInfo& hitdata, QVector3D& refl_coef, double& shine_coef) const;
 
 private:
@@ -30,7 +29,6 @@ private:
     QVector3D _ambient;
     QVector3D _reflective;
     double _polish;
-    //QVector3D _color;
 };
 
 #endif // MATERIAL_H

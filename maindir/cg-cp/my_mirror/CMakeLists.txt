@@ -92,11 +92,11 @@ string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UP)
 if (${CMAKE_BUILD_TYPE_UP} STREQUAL "DEBUG")
      SET(CMAKE_BUILD_TYPE Debug)
     add_executable(my_mirror
-        main_test.cpp
+        main_release.cpp
         ${PROJECT_SOURCES})
 else()
     add_executable(my_mirror
-        main_release.cpp
+        main_test.cpp
         ${PROJECT_SOURCES})
 endif()
 

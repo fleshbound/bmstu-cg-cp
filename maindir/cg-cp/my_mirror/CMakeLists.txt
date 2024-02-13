@@ -17,7 +17,6 @@ find_package(Threads REQUIRED)
 #find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
-    main.cpp
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
@@ -93,7 +92,7 @@ string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UP)
 if (${CMAKE_BUILD_TYPE_UP} STREQUAL "DEBUG")
      SET(CMAKE_BUILD_TYPE Debug)
     add_executable(my_mirror
-        main.cpp
+        main_test.cpp
         ${PROJECT_SOURCES})
 else()
     add_executable(my_mirror

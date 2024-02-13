@@ -175,10 +175,10 @@
              <item>
               <widget class="QDoubleSpinBox" name="spinBox_mirror_diffuse">
                <property name="maximum">
-                <double>100.000000000000000</double>
+                <double>1.000000000000000</double>
                </property>
                <property name="singleStep">
-                <double>0.500000000000000</double>
+                <double>0.100000000000000</double>
                </property>
               </widget>
              </item>
@@ -216,6 +216,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="spinBox_mirror_radius_k">
+               <property name="maximum">
+                <double>100.000000000000000</double>
+               </property>
                <property name="value">
                 <double>0.000000000000000</double>
                </property>
@@ -313,12 +316,15 @@
              <item>
               <widget class="QLabel" name="label_18">
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Коэффициент масштабирования&lt;br/&gt;высоты предмета (растяжение шара)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Коэффициент масштабирования&lt;br/&gt;высоты предмета &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="spinBox_object_height_k">
+               <property name="maximum">
+                <double>100.000000000000000</double>
+               </property>
                <property name="singleStep">
                 <double>0.010000000000000</double>
                </property>
@@ -519,10 +525,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_light_dx">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                    <property name="singleStep">
                     <double>1.000000000000000</double>
@@ -539,10 +545,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_light_dy">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -556,10 +562,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_light_dz">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -715,10 +721,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_camera_dx">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                    <property name="singleStep">
                     <double>1.000000000000000</double>
@@ -735,10 +741,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_camera_dy">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -752,10 +758,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_camera_dz">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -839,10 +845,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_camera_angle_x">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                    <property name="singleStep">
                     <double>1.000000000000000</double>
@@ -859,10 +865,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_camera_angle_y">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -876,10 +882,10 @@
                  <item>
                   <widget class="QDoubleSpinBox" name="spinBox_camera_angle_z">
                    <property name="minimum">
-                    <double>-100.000000000000000</double>
+                    <double>-1000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>100.000000000000000</double>
+                    <double>1000.000000000000000</double>
                    </property>
                   </widget>
                  </item>

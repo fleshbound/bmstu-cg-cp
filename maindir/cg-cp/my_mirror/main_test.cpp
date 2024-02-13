@@ -14,8 +14,8 @@
 
 #define TEST_ITERS 20
 #define TEST_MAX_DIFF 100
-#define TEST_DIFF_STEP 2
-#define TEST_FILE "../test_res.txt"
+#define TEST_DIFF_STEP 10
+#define TEST_FILE "../test_res_1.txt"
 
 int main(int argc, char* argv[])
 {
@@ -40,6 +40,7 @@ int main(int argc, char* argv[])
             QVector3D refl = QVector3D(1, 1, 1) - QVector3D(cur_diffuse, cur_diffuse, cur_diffuse);
             double polish = 100;
             scene.change_mirror_material(refl, polish, color);
+            //scene.move_light(QVector3D(i * 20, j * 20, 0));
             uint64_t start, end;
             start = clock();
             scene.draw();

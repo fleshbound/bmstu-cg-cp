@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="394.36539mm"
+   height="81.640991mm"
+   viewBox="0 0 394.36539 81.640991"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.64373563"
-     inkscape:cx="234.56834"
-     inkscape:cy="322.33729"
+     inkscape:zoom="0.66820024"
+     inkscape:cx="769.2305"
+     inkscape:cy="331.48746"
      inkscape:window-width="1920"
      inkscape:window-height="958"
      inkscape:window-x="0"
@@ -37,7 +37,8 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(93.950532,-84.067932)">
     <g
        id="g1494"
        transform="translate(93.994568,59.082298)">
@@ -107,11 +108,11 @@
          id="path1496" />
     </g>
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:0;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1808"
-       width="288.45773"
+       width="394.36539"
        height="81.640991"
-       x="-34.644474"
-       y="83.20256" />
+       x="-93.950531"
+       y="84.067932" />
   </g>
 </svg>
